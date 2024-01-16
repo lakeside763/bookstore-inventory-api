@@ -10,7 +10,7 @@
     "type": "git",
     "url": "https://git-codecommit.us-east-2.amazonaws.com/v1/repos/acg.eks.bookstore.inventory-api"
   },
-  "author": "Mario Mercado",
+  "author": "Lakeside Smith",
   "license": "ISC",
   "dependencies": {
     "async": "^3.1.1",

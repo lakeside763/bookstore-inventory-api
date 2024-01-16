@@ -32,8 +32,8 @@ app.use(AWSXRay.express.openSegment('Inventory API'));
 const packageJson = require('./package.json');
 
 app.get('/index', (request, response) => {
-    const { name, version } = packageJson
-    response.status(200).json({ name, version });
+    const { name, version, author } = packageJson
+    response.status(200).json({ name, version, author });
 })
 
 app.post('/register', (request, response) => {
