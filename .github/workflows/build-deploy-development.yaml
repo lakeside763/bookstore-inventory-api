@@ -6,6 +6,11 @@ on:
     branches:
       - main
 
+env: 
+  AWS_REGION: us-east-1
+  AWS_CLUSTER_NAME: eks-acg
+  HELM_CHART_PATH:  infra/helm
+
 jobs:
   build-and-push:
     name: Build and Push to ECR
@@ -51,10 +56,20 @@ jobs:
       #   with: 
       #     cluster-name: eks-acg
       
-      - name: Deploy to EKS
-        run: |
-          aws eks --region us-east-1 update-kubeconfig --name eks-acg
-          helm install bookstore-inventory-api infra/helm
+      # - name: Deploy to EKS
+      #   run: |
+      #     aws eks --region us-east-1 update-kubeconfig --name eks-acg
+      #     helm install bookstore-inventory-api infra/helm
       
+      # - name: Deploy to EKS with Helm
+      #   run: |
+      #     aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }}
+      #     helm upgrade --install your-app ${{ env.HELM_CHART_PATH }} --set image.repository=${{ env.ECR_REGISTRY }}/your-app,image.tag=${{ github.sha }}
+
+      - name: Deploy to EKS with Helm
+        run: |
+          aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }}
+          helm upgrade --install acg-inventory-api ${{ env.HELM_CHART_PATH }} \
+            --set image.repository=${{ env.ECR_REGISTRY }}/bookstore-inventory-api,image.tag=${{ github.sha }}
 
     
