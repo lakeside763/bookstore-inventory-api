@@ -9,7 +9,8 @@ aws:
   region: us-east-1
   
 image:
-  repository: mariomerco/inventory-api
+  #repository: mariomerco/inventory-api
+  repository: 343826286500.dkr.ecr.us-east-1.amazonaws.com/bookstore-inventory-api:latest
   tag: latest
   pullPolicy: IfNotPresent
 
@@ -19,9 +20,6 @@ service:
   name: inventory-api-service
   scheme: internet-facing
   servicePort: 80
-
-aws:
-  region: us-east-1
 
 resources: {}
   # limits:
