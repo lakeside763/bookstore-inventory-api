@@ -29,6 +29,13 @@ const dynamoDb = new AWS.DynamoDB.DocumentClient({ region: awsDefaultRegion });
 
 app.use(AWSXRay.express.openSegment('Inventory API'));
 
+const packageJson = require('./package.json');
+
+app.get('/index', (request, response) => {
+    const { name, version } = packageJson
+    response.status(200).json({ name, version });
+})
+
 app.post('/register', (request, response) => {
     inventoryRegistryJson = request.body;
     // TODO: Validate

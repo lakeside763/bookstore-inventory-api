@@ -40,37 +40,16 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: bookstore-inventory-api
-          IMAGE_TAG: latest
-          #IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
+          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
           docker build -f src/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-      # - name: Install helm
-      #   uses: actions/setup-helm@v3
-      #   with:
-      #     helm-version: 3.9.0
-
-      # - name: Update EKS kubeconfig
-      #   uses: aws-actions/eks-update-kubeconfig@v1
-      #   with: 
-      #     cluster-name: eks-acg
-      
-      # - name: Deploy to EKS
-      #   run: |
-      #     aws eks --region us-east-1 update-kubeconfig --name eks-acg
-      #     helm install bookstore-inventory-api infra/helm
-      
-      # - name: Deploy to EKS with Helm
-      #   run: |
-      #     aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.EKS_CLUSTER_NAME }}
-      #     helm upgrade --install your-app ${{ env.HELM_CHART_PATH }} --set image.repository=${{ env.ECR_REGISTRY }}/your-app,image.tag=${{ github.sha }}
 
       - name: Deploy to EKS with Helm
         run: |
           aws eks --region us-east-1 update-kubeconfig --name eks-acg
           helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
             --namespace development \
-            --set image.repository=${{ env.ECR_REGISTRY }}/bookstore-inventory-api,image.tag=latest \
+            --set image.repository=${{ env.ECR_REGISTRY }}/{{ env.ECR_RE}},image.tag=${{ env.IMAGE_TAG }} \
 
     
