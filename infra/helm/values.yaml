@@ -10,7 +10,7 @@ aws:
   
 image:
   #repository: mariomerco/inventory-api
-  repository: 131185384471.dkr.ecr.us-east-1.amazonaws.com/bookstore-inventory-api:latest
+  repository: 131185384471.dkr.ecr.us-east-1.amazonaws.com/bookstore-inventory-api
   tag: latest
   pullPolicy: IfNotPresent
 
