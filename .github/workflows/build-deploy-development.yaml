@@ -69,7 +69,7 @@ jobs:
       - name: Deploy to EKS with Helm
         run: |
           aws eks --region us-east-1 update-kubeconfig --name eks-acg
-          helm upgrade --install acg-inventory-api ${{ env.HELM_CHART_PATH }} \
+          helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
             --set image.repository=${{ env.ECR_REGISTRY }}/bookstore-inventory-api,image.tag=latest
 
     
