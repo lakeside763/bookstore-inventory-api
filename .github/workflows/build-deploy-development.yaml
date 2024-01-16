@@ -41,18 +41,19 @@ jobs:
           docker build -f src/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Install helm
-        uses: actions/setup-helm@v3
-        with:
-          helm-version: 3.9.0
+      # - name: Install helm
+      #   uses: actions/setup-helm@v3
+      #   with:
+      #     helm-version: 3.9.0
 
-      - name: Update EKS kubeconfig
-        uses: aws-actions/eks-update-kubeconfig@v1
-        with: 
-          cluster-name: eks-acg
+      # - name: Update EKS kubeconfig
+      #   uses: aws-actions/eks-update-kubeconfig@v1
+      #   with: 
+      #     cluster-name: eks-acg
       
       - name: Deploy to EKS
         run: |
+          aws eks --region us-east-1 update-kubeconfig --name eks-acg
           helm install bookstore-inventory-api infra/helm
       
 
