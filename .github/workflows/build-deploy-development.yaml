@@ -40,8 +40,7 @@ jobs:
       - name: Build, tag, and push image to ECR
         id: build-image
         env:
-          # IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-          IMAGE_TAG: latest
+          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           docker build -f src/Dockerfile -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG ./src
@@ -49,10 +48,9 @@ jobs:
 
       - name: Deploy to EKS with Helm
         env:
-          IMAGE_TAG: latest
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
           aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
           helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
             --namespace development \
-            --set image.repository=$ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
+            --set image.repository=${{ secrets.ECR_IMAGE_URI }},image.tag=$IMAGE_TAG
