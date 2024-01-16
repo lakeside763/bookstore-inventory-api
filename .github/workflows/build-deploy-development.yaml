@@ -72,6 +72,6 @@ jobs:
           helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
             --namespace development \
             --set image.repository=${{ env.ECR_REGISTRY }}/bookstore-inventory-api,image.tag=latest \
-            inventory-api-development .
+            inventory-api-development
 
     
