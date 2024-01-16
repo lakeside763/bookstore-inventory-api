@@ -10,6 +10,9 @@ env:
   AWS_REGION: us-east-1
   AWS_CLUSTER_NAME: eks-acg
   HELM_CHART_PATH:  infra/helm
+  ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+  ECR_REPOSITORY: bookstore-inventory-api
+  IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
 
 jobs:
   build-and-push:
@@ -37,19 +40,15 @@ jobs:
 
       - name:  Build, Tag, and Push the Image to Amazon ECR
         id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: bookstore-inventory-api
-          IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
-          docker build -f src/Dockerfile -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG ./src
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker build -f src/Dockerfile -t ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:${{env.IMAGE_TAG}} ./src
+          docker push ${{env.ECR_REGISTRY}}/${{env.ECR_REPOSITORY}}:${{env.IMAGE_TAG}}
 
       - name: Deploy to EKS with Helm
         run: |
           aws eks --region us-east-1 update-kubeconfig --name eks-acg
           helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
             --namespace development \
-            --set image.repository=${{ env.ECR_REGISTRY }}/{{ env.ECR_REPOSITORY }},image.tag=${{ env.IMAGE_TAG }} \
+            --set image.repository=${{env.ECR_REGISTRY}}/{{env.ECR_REPOSITORY}},image.tag=${{env.IMAGE_TAG}}
 
     
