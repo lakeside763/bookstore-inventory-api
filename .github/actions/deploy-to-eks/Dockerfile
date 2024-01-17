@@ -9,7 +9,7 @@ LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
 COPY run.sh /run.sh
-RUN chmod +x /entrypoint.sh
+RUN chmod +x /run.sh
 
 ENTRYPOINT ["/run.sh"]
 
