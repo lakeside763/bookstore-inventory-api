@@ -22,9 +22,6 @@ inputs:
   ecr-repository:
     description: Name of the ECR repository for the Docker image
     required: true
-  command:
-    description: 'Kubectl command'
-    required: true
 
 runs:
   using: 'docker'

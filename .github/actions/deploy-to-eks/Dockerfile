@@ -15,7 +15,7 @@ RUN useradd -ms /bin/bash actionuser
 WORKDIR /action
 
 # Copy action files to the working directory
-COPY action.yaml run.sh /action/
+COPY action.yml run.sh /action/
 
 # Grant execute permissions to run.sh
 RUN chmod +x /action/run.sh
@@ -28,3 +28,4 @@ USER actionuser
 
 # Entrypoint for the action
 ENTRYPOINT ["/action/run.sh"]
+
