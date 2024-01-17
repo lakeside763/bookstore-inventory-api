@@ -14,5 +14,7 @@ COPY action.yaml run.sh /action/
 
 RUN chmod +x /action/run.sh
 
+ls -l /action
+
 ENTRYPOINT ["/action/run.sh"]
 
