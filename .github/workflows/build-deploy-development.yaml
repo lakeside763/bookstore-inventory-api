@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  AWS_CLUSTER_NAME: eks-acg
+  EKS_CLUSTER_NAME: eks-acg
   HELM_CHART_PATH: infra/helm
   ECR_REPOSITORY: bookstore-inventory-api  # Set as a workflow-level variable
 
@@ -21,41 +21,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Build and Deploy
+        uses: ./.github/actions/build-deploy
         with:
+          aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}  # Use environment variable
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      
-      - name: Get short SHA
-        id: slug
-        run: echo "::set-output name=sha8::$(echo ${GITHUB_SHA} | cut -c1-8)"
-
-      - name: Automatic Tagging of Releases
-        id: increment-git-tag
-        run: |
-          bash ./build/git-update.sh -v major
-
-      - name: Build, tag, and push image to ECR
-        id: build-image
-        env:
-          # IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
-          IMAGE_TAG: ${{ steps.slug.outputs.sha8 }}
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          docker build -f src/Dockerfile -t ${{ secrets.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG ./src
-          docker push ${{ secrets.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
-          echo "${ECR_REGISTRY}"
-
-      # - name: Deploy to EKS with Helm
-      #   run: |
-      #     aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
-      #     helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
-      #       --namespace development \
-      #       --set image.repository=${{ secrets.ECR_IMAGE_URI }},image.tag=latest
-  
+          eks-cluster-name: ${{ env.EKS_CLUSTER_NAME }}
+          helm-chart-path: ${{ env.HELM_CHART_PATH }}
+          ecr-registry: ${{ secrets.ECR_REGISTRY }}
+          ecr-repository: ${{ env.ECR_REPOSITORY }}
