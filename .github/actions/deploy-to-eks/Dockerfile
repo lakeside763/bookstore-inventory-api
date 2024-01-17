@@ -1,5 +1,5 @@
 # Base image with essential tools for building, pushing, and deploying
-FROM docker:latest
+FROM alpine:latest
 
 # Labels for GitHub Actions metadata
 LABEL "com.github.actions.name"="Build and Deploy"
@@ -23,7 +23,7 @@ RUN chmod +x /action/run.sh
 
 # Switch to non-root user (if needed)
 # USER actionuser
-
+RUN ls -l /action
 # Entrypoint for the action
-ENTRYPOINT ["action/run.sh"]
+ENTRYPOINT ["/action/run.sh"]
 
