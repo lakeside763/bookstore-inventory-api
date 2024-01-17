@@ -8,11 +8,23 @@ FROM ubuntu:latest
 #     helm \
 #     jq
 
+# Create a non-root user for security
+RUN useradd -ms /bin/bash actionuser
+
 # Set working directory to /action
 WORKDIR /action
 
 # Copy action files to the working directory
-COPY action.yaml run.sh /action/
+COPY action.yml run.sh /action/
+
+# Grant execute permissions to run.sh
+RUN chmod +x /action/run.sh
+
+# Change ownership of action directory to the non-root user
+RUN chown -R actionuser:actionuser /action
+
+# Switch to the non-root user
+USER actionuser
 
 # Entrypoint for the action
 ENTRYPOINT ["/action/run.sh"]
