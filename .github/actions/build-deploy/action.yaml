@@ -22,6 +22,10 @@ inputs:
   ecr-repository:
     description: Name of the ECR repository for the Docker image
     required: true
+  command:
+    description: 'Kubectl command'
+    required: true
+
 runs:
   using: 'docker'
   image: 'Dockerfile'  # Replace with your Dockerfile path if using a custom image
@@ -33,3 +37,5 @@ runs:
     HELM_CHART_PATH: ${{ inputs.elm-chart-path }}
     ECR_REGISTRY: ${{ inputs.ecr-registry }}
     ECR_REPOSITORY: ${{ inputs.ecr-repository }}
+  args:
+    - /run.sh ${{ inputs.command }}

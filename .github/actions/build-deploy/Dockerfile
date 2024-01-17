@@ -6,7 +6,7 @@ RUN pip3 install --upgrade pip \
   && rm -rf /var/cache/apk/*
 RUN curl -Ls -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/bin/kubectl \
   && chmod +x /usr/bin/kubectl
-
+  
 # Set working directory to /action
 WORKDIR /action
 
