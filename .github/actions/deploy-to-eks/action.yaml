@@ -37,5 +37,3 @@ runs:
     HELM_CHART_PATH: ${{ inputs.elm-chart-path }}
     ECR_REGISTRY: ${{ inputs.ecr-registry }}
     ECR_REPOSITORY: ${{ inputs.ecr-repository }}
-  args:
-    - /run.sh ${{ inputs.command }}
