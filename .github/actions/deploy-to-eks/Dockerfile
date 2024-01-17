@@ -8,8 +8,11 @@ LABEL "com.github.actions.color"="green"
 LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+# Set working directory to /action
+WORKDIR /action
+COPY action.yaml run.sh /action/
 
-ENTRYPOINT ["/run.sh"]
+RUN chmod +x /action/run.sh
+
+ENTRYPOINT ["/action/run.sh"]
 
