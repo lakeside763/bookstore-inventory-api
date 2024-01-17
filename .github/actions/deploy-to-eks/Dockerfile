@@ -2,11 +2,10 @@
 FROM ubuntu:latest
 
 # Install AWS CLI, Docker, Helm, and jq (for parsing JSON outputs)
-# RUN apt-get update && apt-get install -y \
-#     awscli \
-#     docker.io \
-#     helm \
-#     jq
+RUN apt-get update && apt-get install -y \
+    awscli \
+    docker.io \
+    helm 
 
 # Create a non-root user for security
 RUN useradd -ms /bin/bash actionuser
