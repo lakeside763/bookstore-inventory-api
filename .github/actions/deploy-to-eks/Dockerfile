@@ -25,5 +25,5 @@ RUN chmod +x /action/run.sh
 # USER actionuser
 
 # Entrypoint for the action
-ENTRYPOINT ["./action/run.sh"]
+ENTRYPOINT ["/run.sh"]
 
