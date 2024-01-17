@@ -1,8 +1,12 @@
 # Base image with essential tools for building, pushing, and deploying
-FROM ubuntu:latest
+FROM alpine:latest
 
 # Install AWS CLI, Docker, Helm, and jq (for parsing JSON outputs)
-apt-get update && apt-get install -y awscli docker.io helm
+RUN apt-get update && apt-get install -y \
+    awscli \
+    docker.io \
+    helm \
+    jq
 
 # Create a non-root user for security
 RUN useradd -ms /bin/bash actionuser
