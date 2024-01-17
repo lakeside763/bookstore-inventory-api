@@ -50,12 +50,10 @@ jobs:
         run: |
           docker build -f src/Dockerfile -t $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG ./src
           docker push $ECR_REGISTRY/${{ env.ECR_REPOSITORY }}:$IMAGE_TAG
-          echo "$ECR_REGISTRY"
 
-      # - name: Deploy to EKS with Helm
-      #   run: |
-      #     aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
-      #     helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
-      #       --namespace development \
-      #       --set image.repository=${{ secrets.ECR_IMAGE_URI }},image.tag=latest
-  
+      - name: Deploy to EKS with Helm
+        run: |
+          aws eks --region ${{ env.AWS_REGION }} update-kubeconfig --name ${{ env.AWS_CLUSTER_NAME }}
+          helm upgrade --install inventory-api-development ${{ env.HELM_CHART_PATH }} \
+            --namespace development \
+            --set image.repository=${{ secrets.ECR_IMAGE_URI }},image.tag=latest
