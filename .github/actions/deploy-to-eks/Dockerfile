@@ -9,13 +9,21 @@ LABEL "com.github.actions.color"="green"
 LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
+# Ensure root user for compatibility with docker:latest
+USER root
+
+# Set working directory
+WORKDIR /action
 
 # Copy action files
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY action.yaml run.sh /action/
 
-RUN ls -l
-RUN cat entrypoint.sh
+# Grant execute permissions to run.sh
+RUN chmod +x /action/run.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Switch to non-root user (if needed)
+# USER actionuser
+
+# Entrypoint for the action
+ENTRYPOINT ["action/run.sh"]
 
