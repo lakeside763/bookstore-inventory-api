@@ -11,7 +11,7 @@ RUN curl -Ls -o /usr/bin/kubectl https://storage.googleapis.com/kubernetes-relea
 WORKDIR /action
 
 # Copy action files to the working directory
-COPY action.yml run.sh /action/
+COPY action.yaml run.sh /action/
 
 # Grant execute permissions to run.sh
 RUN chmod +x /action/run.sh
