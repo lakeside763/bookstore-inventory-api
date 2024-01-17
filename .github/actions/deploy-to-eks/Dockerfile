@@ -16,5 +16,5 @@ RUN chmod +x /action/run.sh
 
 RUN ls -l /action
 
-ENTRYPOINT ["/action/run.sh"]
+ENTRYPOINT ["/run.sh"]
 
