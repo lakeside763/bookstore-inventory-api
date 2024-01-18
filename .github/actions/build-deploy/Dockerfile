@@ -10,9 +10,6 @@ LABEL "com.github.actions.color"="green"
 LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
-RUN apt-get update && apt-get install -y awscli
-RUN apt-get update && apt-get install -y helm
-
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
