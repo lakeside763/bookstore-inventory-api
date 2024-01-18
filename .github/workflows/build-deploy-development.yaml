@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build and Deploy
-        uses: lakeside763/deploy-to-eks@main
+        uses: lakeside763/deploy-to-eks@v1
         with:
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
