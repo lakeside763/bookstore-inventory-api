@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 # Checkout code
 git clone $GITHUB_WORKSPACE /workspace
