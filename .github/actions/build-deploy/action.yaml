@@ -25,7 +25,7 @@ inputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'  # Replace with your Dockerfile path if using a custom image
+  image: Dockerfile
   env:
     AWS_REGION: ${{ inputs.AWS_REGION }}
     AWS_ACCESS_KEY_ID : ${{ inputs.aws-access-key-id }}
