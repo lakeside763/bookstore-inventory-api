@@ -11,8 +11,7 @@ LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
 RUN apk add --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.19/community/ --allow-untrusted python3-dev
-RUN pip install awscli
-RUN pip install docker
+RUN apk add --no-cache py-pip python-dev groff less && pip install awscli && pip install docker
 
 
 COPY entrypoint.sh /entrypoint.sh
