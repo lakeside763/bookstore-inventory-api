@@ -10,8 +10,8 @@ LABEL "com.github.actions.color"="green"
 LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
-COPY entrypoint.sh /github/workspace/entrypoint.sh
-RUN chmod +x /github/workspace/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/workspace/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
 
