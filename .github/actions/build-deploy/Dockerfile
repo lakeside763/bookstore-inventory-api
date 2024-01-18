@@ -1,5 +1,5 @@
 # Base image with essential tools for building, pushing, and deploying
-FROM docker:latest
+FROM amazon/aws-cli
 
 # Labels for GitHub Actions metadata
 LABEL "com.github.actions.name"="Build and Deploy"
@@ -9,6 +9,7 @@ LABEL "com.github.actions.color"="green"
 
 LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
+
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
