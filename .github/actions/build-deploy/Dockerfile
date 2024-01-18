@@ -10,14 +10,14 @@ LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
 # Set working directory
-WORKDIR /github/workspace/action
+WORKDIR /action
 
 # Copy action files
-COPY action.yaml run.sh /github/workspace/action/
+COPY action.yaml run.sh /action/
 
 # Grant execute permissions to run.sh
-RUN chmod +x /github/workspace/action/run.sh
+RUN chmod +x /action/run.sh
 
 # Entrypoint for the action
-ENTRYPOINT ["/github/workspace/action/run.sh"]
+ENTRYPOINT ["/action/run.sh"]
 
