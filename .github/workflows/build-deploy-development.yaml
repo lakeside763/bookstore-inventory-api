@@ -31,9 +31,5 @@ jobs:
           helm-chart-path: ${{ env.HELM_CHART_PATH }}
           ecr-registry: ${{ secrets.ECR_REGISTRY }}
           ecr-repository: ${{ env.ECR_REPOSITORY }}
-      
-      - name: Debug
-        run: |
-          ls -l /github/workspace/.github/actions/build-deploy
-          cat /github/workspace/.github/actions/build-deploy/run.sh
+    
         
