@@ -18,9 +18,9 @@ SHA8=$(echo ${GITHUB_SHA} | cut -c1-8)
 docker build -f /workspace/src/Dockerfile -t ${ECR_REGISTRY}/${ECR_REPOSITORY}:${SHA8} /workspace/src
 docker push ${ECR_REGISTRY}/${ECR_REPOSITORY}:${SHA8}
 
-# Deploy to EKS with Helm
-# aws eks --region ${{ inputs.aws-region }} update-kubeconfig --name ${{ inputs.eks-cluster-name }}
-# helm upgrade --install inventory-api-development ${{ inputs.helm-chart-path }} \
+# # Deploy to EKS with Helm
+# aws eks --region ${AWS_REGION} update-kubeconfig --name ${EKS_CLUSTER_NAME}
+# helm upgrade --install inventory-api-development ${HELM_CHART_PATH} \
 #   --namespace development \
-#   --set image.repository=$ECR_REGISTRY/${{ inputs.ecr-repository }}:$SHA8,image.tag=latest
+#   --set image.repository=${ECR_REGISTRY}/${ECR_REPOSITORY}:${SHA8},image.tag=latest
 

@@ -27,7 +27,7 @@ runs:
   using: 'docker'
   image: Dockerfile
   env:
-    AWS_REGION: ${{ inputs.AWS_REGION }}
+    AWS_REGION: ${{ inputs.aws-region }}
     AWS_ACCESS_KEY_ID : ${{ inputs.aws-access-key-id }}
     AWS_SECRET_ACCESS_KEY : ${{ inputs.aws-secret-access-key }}
     EKS_CLUSTER_NAME: ${{ inputs.eks-cluster-name }}
