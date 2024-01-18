@@ -13,5 +13,5 @@ LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/github/workspace/entrypoint.sh"]
 
