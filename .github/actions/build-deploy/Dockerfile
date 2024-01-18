@@ -14,6 +14,7 @@ LABEL "repository"="https://github.com/lakeside763/bookstore-inventory-api"
 LABEL "homepage"="https://github.com/lakeside763/bookstore-inventory-api/actions"
 
 # Install essential packages (optimized for Alpine)
+RUN apk add --update-cache --repository http://dl-cdn.alpinelinux.org/alpine/v3.19/community/ --allow-untrusted python3-dev
 RUN apk add --update --no-cache py3-pip python3-dev groff less docker
 RUN pip install awscli
 
