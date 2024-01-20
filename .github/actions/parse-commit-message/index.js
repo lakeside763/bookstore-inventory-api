@@ -7,7 +7,6 @@ try {
 
   const commitMessage = github.context.payload.head_commit.message;
 
-  
   // const sanitizedPrefixes = validPrefixes.filter(prefix => /^[a-zA-Z0-9]+$/.test(prefix));
   const prefixRegex = new RegExp(`^(${validPrefixes.join('|')}):`);
 
