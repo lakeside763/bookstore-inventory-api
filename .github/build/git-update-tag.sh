@@ -38,5 +38,3 @@ git push origin $NEW_TAG
 git add package.json
 git commit -m "Update version to $NEW_TAG_NO_V"
 git push origin ${GITHUB_REF}
-
-exit 0
