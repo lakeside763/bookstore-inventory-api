@@ -50,9 +50,8 @@ echo "New tag without 'v' - $NEW_TAG_WITH_NO_V"
 git tag $NEW_TAG
 git push origin $NEW_TAG
 
-
-# # Commit and push package.json changes
-# git add package.json
-# npm version $INCREMENT_TYPE -m "chore: Update version to $NEW_TAG_WITH_NO_V"
-# # git commit -m "chore: Update version to $NEW_TAG_WITH_NO_V"
-# git push origin ${GITHUB_REF}
+# Commit and push package.json changes
+git add package.json
+npm version $INCREMENT_TYPE -m "chore: Update version to $NEW_TAG_WITH_NO_V"
+# git commit -m "chore: Update version to $NEW_TAG_WITH_NO_V"
+git push origin ${GITHUB_REF}
