@@ -37,7 +37,7 @@ jobs:
         
 
       - name: Build and Deploy
-        uses: lakeside763/deploy-to-eks@v1
+        uses: ./.github/actions/build-deploy
         with:
           aws-region: ${{ env.AWS_REGION }}
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
