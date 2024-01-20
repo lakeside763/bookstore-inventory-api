@@ -12,7 +12,7 @@ env:
   AWS_REGION: us-east-1
   EKS_CLUSTER_NAME: eks-acg
   HELM_CHART_PATH: infra/helm
-  ECR_REPOSITORY: bookstore-inventory-api  # Set as a workflow-level variable
+  ECR_REPOSITORY: bookstore-inventory-api 
 
 jobs:
   build-and-deploy:
@@ -39,7 +39,7 @@ jobs:
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-          bash ./.github/build/git-update-tag.sh -v ${{ steps.parse-message.outputs.extracted_value }}
+          bash ../build/git-update-tag.sh -v ${{ steps.parse-message.outputs.extracted_value }}
         
 
       - name: Build and Deploy
