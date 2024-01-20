@@ -11,7 +11,9 @@ CURRENT_MINOR=$(echo $CURRENT_TAG | awk -F. '{print $2}')
 CURRENT_PATCH=$(echo $CURRENT_TAG | awk -F. '{print $3}')
 
 # Determine increment type based on extracted value
-INCREMENT_TYPE="${1:-patch}"  # Default to "patch" if not provided
+INCREMENT_TYPE="$1:-patch"  # Default to "patch" if not provided
+
+echo $INCREMENT_TYPE
 
 # Increment version components accordingly
 if [[ $INCREMENT_TYPE == "major" ]]; then
