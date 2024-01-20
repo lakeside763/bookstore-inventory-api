@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-  const { pattern } = core.getInputs();
+  const { pattern } = core.getInput();
   console.log(pattern)
 
   const commitMessage = github.context.payload.head_commit.message;
