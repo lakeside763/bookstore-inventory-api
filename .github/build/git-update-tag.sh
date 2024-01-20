@@ -5,6 +5,7 @@ git fetch --tags
 
 # Get the latest tag after fetching
 CURRENT_TAG=$(git describe --tags --abbrev=0)
+echo "tag from git - $CURRENT_TAG"
 if [[ -z "$CURRENT_TAG" ]]; then
   CURRENT_TAG="v0.0.0"  # Create initial tag if none exists
   git tag $CURRENT_TAG
@@ -49,8 +50,8 @@ git tag $NEW_TAG
 git push origin $NEW_TAG
 
 
-# # Commit and push package.json changes
-# git add package.json
-# npm version ${INCREMENT_TYPE} -m "$NEW_TAG_NO_V"
-# git commit -m "Update version to $NEW_TAG_NO_V"
-# git push origin ${GITHUB_REF}
+# Commit and push package.json changes
+git add package.json
+npm version ${INCREMENT_TYPE} -m "$NEW_TAG_NO_V"
+git commit -m "chore: Update version to $NEW_TAG_NO_V"
+git push origin ${GITHUB_REF}
