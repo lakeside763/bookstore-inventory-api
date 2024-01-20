@@ -3,7 +3,7 @@
 # Get current tag and components
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
-  CURRENT_TAG="v0.0.1"  # Create initial tag if none exists
+  CURRENT_TAG="0.0.1"  # Create initial tag if none exists
 fi
 
 CURRENT_MAJOR=$(echo $CURRENT_TAG | awk -F. '{print $1}')
