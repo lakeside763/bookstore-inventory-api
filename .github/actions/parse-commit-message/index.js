@@ -2,26 +2,26 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-  const { pattern } = core.getInput();
-
-  console.log('Pattern:', pattern);
-  if (!pattern) {
-    core.setFailed('Pattern is undefined');
-    return;
-  }
+  // Define your commit message prefixes here
+  const validPrefixes = ['chore', 'feat!', 'feat', 'fix']; // Add more prefixes as needed
 
   const commitMessage = github.context.payload.head_commit.message;
-  console.log('Commit Message:', commitMessage);
-  if (!commitMessage) {
-    core.setFailed('Commit message is undefined');
-    return;
-  }
-  const match = commitMessage.match(pattern);
+  core.debug(`Commit Message: ${commitMessage}`);
 
+  // Extract the prefix using a regular expression
+  const match = commitMessage.match(/^(\w+):/);
+  
   if (match) {
-    core.setOutput('extracted_value', match[1]); // Assuming the desired value is in the first capture group
+    const extractedPrefix = match[1].toLowerCase();
+
+    // Check if the extracted prefix is valid
+    if (validPrefixes.includes(extractedPrefix)) {
+      core.setOutput('extracted_prefix', extractedPrefix);
+    } else {
+      core.setFailed(`Invalid prefix: ${extractedPrefix}`);
+    }
   } else {
-    core.setFailed(`No match found for pattern: ${pattern}`);
+    core.setFailed(`No match found for prefix in commit message`);
   }
 } catch (error) {
   core.setFailed(error.message);
