@@ -1,0 +1,12 @@
+name: Parse Commit Message
+description: Extracts information from the commit message
+runs:
+  using: 'node16'
+  main: 'index.js'
+inputs:
+  pattern:
+    description: Regular expression to match
+    required: true
+outputs:
+  extracted_value:
+    description: The extracted value from the commit message

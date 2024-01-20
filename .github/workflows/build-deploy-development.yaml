@@ -5,6 +5,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'package.json'
 
 env:
   AWS_REGION: us-east-1
@@ -16,10 +18,23 @@ jobs:
   build-and-deploy:
     name: Build, push, and deploy
     runs-on: ubuntu-latest
+    env:
+      GITHUB_REF: ${{ github.ref }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
+      - name: Parse Commit Message
+        id: parse-message
+        uses: ./.github/actions/parse-commit-message
+        with:
+          pattern: '^(fix|chore|feat!|feat|(docs|refactor|perf|styles):)'
+      - name: Automatic Tagging of Releases
+        id: increment-git-tag
+        run: |
+          bash ./.github/build/git-update-tag.sh -v ${{ steps.parse-message.outputs.extracted_value }}
+        
 
       - name: Build and Deploy
         uses: lakeside763/deploy-to-eks@v1
@@ -31,5 +46,6 @@ jobs:
           helm-chart-path: ${{ env.HELM_CHART_PATH }}
           ecr-registry: ${{ secrets.ECR_REGISTRY }}
           ecr-repository: ${{ env.ECR_REPOSITORY }}
+          image-tag: ${{ steps.increment-git-tag.outputs.git-tag }}
     
         
