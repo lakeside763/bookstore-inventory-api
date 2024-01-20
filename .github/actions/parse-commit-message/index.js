@@ -19,7 +19,7 @@ try {
   const match = commitMessage.match(pattern);
 
   if (match) {
-    core.setOutput('extracted_value', match[2]); // Assuming the desired value is in the first capture group
+    core.setOutput('extracted_value', match[1]); // Assuming the desired value is in the first capture group
   } else {
     core.setFailed(`No match found for pattern: ${pattern}`);
   }
