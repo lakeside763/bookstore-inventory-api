@@ -9,11 +9,15 @@ fi
 
 TAG_VERSION="${CURRENT_TAG#v}"
 
-# Split the version string into components using a period as the delimiter
-IFS=. read -r CURRENT_MAJOR CURRENT_MINOR CURRENT_PATCH <<< "$TAG_VERSION"
+# # Split the version string into components using a period as the delimiter
+# IFS=. read -r CURRENT_MAJOR CURRENT_MINOR CURRENT_PATCH <<< "$TAG_VERSION"
+
+CURRENT_MAJOR=$(echo $TAG_VERSION | awk -F. '{print $1}')
+CURRENT_MINOR=$(echo $TAG_VERSION | awk -F. '{print $2}')
+CURRENT_PATCH=$(echo $TAG_VERSION | awk -F. '{print $3}')
 
 # Determine increment type based on extracted value
-INCREMENT_TYPE=$1
+INCREMENT_TYPE="${1:-patch}"
 
 # Increment version components accordingly
 if [[ $INCREMENT_TYPE == "major" ]]; then
@@ -33,6 +37,11 @@ fi
 # Construct new tag
 NEW_TAG="v${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 NEW_TAG_WITH_NO_V="${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
+
+echo "$INCREMENT_TYPE"
+echo "$NEW_TAG"
+echo "$NEW_TAG_WITH_NO_V"
+echo "$GITHUB_REF"
 
 echo ::set-output name=git-tag::$NEW_TAG
 
