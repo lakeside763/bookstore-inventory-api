@@ -2,14 +2,10 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 
 try {
-  // Define your commit message prefixes here
-  const validPrefixes = ['chore', 'feat!', 'feat', 'fix, docs, refactor, perf, styles']; // Add more prefixes as needed
+  const validPrefixes = ['chore', 'feat!', 'feat', 'fix, docs, refactor, perf, styles'];
 
   const commitMessage = github.context.payload.head_commit.message;
-
-  // const sanitizedPrefixes = validPrefixes.filter(prefix => /^[a-zA-Z0-9]+$/.test(prefix));
   const prefixRegex = new RegExp(`^(${validPrefixes.join('|')}):`);
-
   const match = commitMessage.match(prefixRegex);
   
   if (match) {
@@ -23,7 +19,7 @@ try {
       core.setFailed(`Invalid prefix: ${extractedPrefix}`);
     }
   } else {
-    core.setFailed(`No match found for prefix in commit message`);
+    core.setFailed(`No match found for prefix: ${extractedPrefix} in commit message`);
   }
 } catch (error) {
   core.setFailed(error.message);

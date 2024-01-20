@@ -7,16 +7,13 @@ git fetch --tags
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
   CURRENT_TAG="v1.0.0"  # Create initial tag if none exists
+  git tag $CURRENT_TAG
 fi
 
 TAG_VERSION="${CURRENT_TAG#v}"
 
 # # Split the version string into components using a period as the delimiter
-# IFS=. read -r CURRENT_MAJOR CURRENT_MINOR CURRENT_PATCH <<< "$TAG_VERSION"
-
-CURRENT_MAJOR=$(echo $TAG_VERSION | awk -F. '{print $1}')
-CURRENT_MINOR=$(echo $TAG_VERSION | awk -F. '{print $2}')
-CURRENT_PATCH=$(echo $TAG_VERSION | awk -F. '{print $3}')
+IFS=. read -r CURRENT_MAJOR CURRENT_MINOR CURRENT_PATCH <<< "$TAG_VERSION"
 
 # Determine increment type based on extracted value
 INCREMENT_TYPE="${1:-patch}"
@@ -52,8 +49,8 @@ git tag $NEW_TAG
 git push origin $NEW_TAG
 
 
-# Commit and push package.json changes
-git add package.json
-npm version ${INCREMENT_TYPE} -m "$NEW_TAG_NO_V"
-git commit -m "Update version to $NEW_TAG_NO_V"
-git push origin ${GITHUB_REF}
+# # Commit and push package.json changes
+# git add package.json
+# npm version ${INCREMENT_TYPE} -m "$NEW_TAG_NO_V"
+# git commit -m "Update version to $NEW_TAG_NO_V"
+# git push origin ${GITHUB_REF}
