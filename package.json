@@ -1,6 +1,6 @@
 {
   "name": "acg.eks.bookstore.inventory-api",
-  "version": "1.0.2",
+  "version": "1.0.0",
   "description": "Inventory API for EKS course in ACG",
   "main": "index.js",
   "scripts": {

@@ -4,7 +4,7 @@
 git fetch --tags
 
 # Get the latest tag after fetching
-CURRENT_TAG=$(git describe --tags --abbrev=0)
+CURRENT_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
 echo "Tag from git - $CURRENT_TAG"
 
 # If no tags exist, create an initial tag
@@ -50,8 +50,8 @@ echo "New tag without 'v' - $NEW_TAG_WITH_NO_V"
 git tag $NEW_TAG
 git push origin $NEW_TAG
 
-# Commit and push package.json changes
-git add package.json
-npm version $INCREMENT_TYPE -m "chore: Update version to $NEW_TAG_WITH_NO_V"
-# git commit -m "chore: Update version to $NEW_TAG_WITH_NO_V"
-git push origin ${GITHUB_REF}
+# # Commit and push package.json changes
+# git add package.json
+# npm version $INCREMENT_TYPE -m "chore: Update version to $NEW_TAG_WITH_NO_V"
+# # git commit -m "chore: Update version to $NEW_TAG_WITH_NO_V"
+# git push origin ${GITHUB_REF}
