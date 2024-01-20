@@ -2,6 +2,10 @@
 
 # Get current tag and components
 CURRENT_TAG=$(git describe --tags --abbrev=0)
+if [[ -z "$CURRENT_TAG" ]]; then
+  CURRENT_TAG="v0.0.1"  # Create initial tag if none exists
+fi
+
 CURRENT_MAJOR=$(echo $CURRENT_TAG | awk -F. '{print $1}')
 CURRENT_MINOR=$(echo $CURRENT_TAG | awk -F. '{print $2}')
 CURRENT_PATCH=$(echo $CURRENT_TAG | awk -F. '{print $3}')
