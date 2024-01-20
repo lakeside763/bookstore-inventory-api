@@ -22,6 +22,9 @@ inputs:
   ecr-repository:
     description: Name of the ECR repository for the Docker image
     required: true
+  image-tag:
+    description: Name of the ECR repository for the Docker image
+    required: true
 
 runs:
   using: 'docker'
@@ -34,3 +37,4 @@ runs:
     HELM_CHART_PATH: ${{ inputs.elm-chart-path }}
     ECR_REGISTRY: ${{ inputs.ecr-registry }}
     ECR_REPOSITORY: ${{ inputs.ecr-repository }}
+    IMAGE_TAG: ${{ inputs.image-tag }}
