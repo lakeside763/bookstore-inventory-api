@@ -7,8 +7,8 @@ try {
 
   const commitMessage = github.context.payload.head_commit.message;
 
-  // Extract the prefix using a regular expression
-  const match = commitMessage.match(/^(\w+):/);
+  const prefixRegex = new RegExp(`^(${validPrefixes.join('|')}):`);
+  const match = commitMessage.match(prefixRegex);
   
   if (match) {
     const extractedPrefix = match[1].toLowerCase();
