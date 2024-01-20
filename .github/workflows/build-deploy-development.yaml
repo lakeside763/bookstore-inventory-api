@@ -25,6 +25,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
+      - name: Install NPM packages
+        run: |
+          cd ../../
+          npm install
+      
       - name: Parse Commit Message
         id: parse-message
         uses: ./.github/actions/parse-commit-message
