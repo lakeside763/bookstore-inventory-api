@@ -36,6 +36,6 @@ function getVersionIncrementType(commitPrefix) {
     case 'feat':
       return 'minor'
     default: 
-      return patch
+      return 'patch'
   }
 }
