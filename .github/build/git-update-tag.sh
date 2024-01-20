@@ -42,6 +42,7 @@ NEW_TAG_WITH_NO_V="${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 
 echo ::set-output name=git-tag::$NEW_TAG
 
+
 echo "current tag - $CURRENT_TAG"
 echo "INCREMENT TYPE - $INCREMENT_TYPE"
 echo "NEW tag - $NEW_TAG"
