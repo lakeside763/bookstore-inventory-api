@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo ${INCREMENT_TYPE}
-
 # Get current tag and components
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
@@ -16,8 +14,6 @@ IFS=. read -r CURRENT_MAJOR CURRENT_MINOR CURRENT_PATCH <<< "$TAG_VERSION"
 
 # Determine increment type based on extracted value
 INCREMENT_TYPE=$1
-
-echo $INCREMENT_TYPE
 
 # Increment version components accordingly
 if [[ $INCREMENT_TYPE == "major" ]]; then
