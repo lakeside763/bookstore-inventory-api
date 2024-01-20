@@ -7,6 +7,7 @@ if [[ -z "$CURRENT_TAG" ]]; then
   git tag $CURRENT_TAG  # Create the tag in the repository
 fi
 
+
 TAG_VERSION="${CURRENT_TAG#v}"
 
 # # Split the version string into components using a period as the delimiter
@@ -39,6 +40,8 @@ NEW_TAG="v${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 NEW_TAG_WITH_NO_V="${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 
 echo ::set-output name=git-tag::$NEW_TAG
+
+echo "current tag - $CURRENT_TAG"
 
 # Create and push new tag
 git tag $NEW_TAG
