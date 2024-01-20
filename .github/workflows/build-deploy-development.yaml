@@ -45,16 +45,16 @@ jobs:
           bash ./.github/build/git-update-tag.sh ${{ steps.parse-message.outputs.extracted_value }}
         
 
-      # - name: Build and Deploy
-      #   uses: ./.github/actions/build-deploy
-      #   with:
-      #     aws-region: ${{ env.AWS_REGION }}
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     eks-cluster-name: ${{ env.EKS_CLUSTER_NAME }}
-      #     helm-chart-path: ${{ env.HELM_CHART_PATH }}
-      #     ecr-registry: ${{ secrets.ECR_REGISTRY }}
-      #     ecr-repository: ${{ env.ECR_REPOSITORY }}
-      #     image-tag: ${{ steps.increment-git-tag.outputs.git-tag }}
+      - name: Build and Deploy
+        uses: ./.github/actions/build-deploy
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          eks-cluster-name: ${{ env.EKS_CLUSTER_NAME }}
+          helm-chart-path: ${{ env.HELM_CHART_PATH }}
+          ecr-registry: ${{ secrets.ECR_REGISTRY }}
+          ecr-repository: ${{ env.ECR_REPOSITORY }}
+          image-tag: ${{ steps.increment-git-tag.outputs.git-tag }}
     
         
