@@ -6,11 +6,9 @@ try {
   const validPrefixes = ['chore', 'feat!', 'feat', 'fix, docs, refactor, perf, styles']; // Add more prefixes as needed
 
   const commitMessage = github.context.payload.head_commit.message;
-  console.log(`Commit Message: ${commitMessage}`);
 
   // Extract the prefix using a regular expression
   const match = commitMessage.match(/^(\w+):/);
-  console.log('Match', match);
   
   if (match) {
     const extractedPrefix = match[1].toLowerCase();
