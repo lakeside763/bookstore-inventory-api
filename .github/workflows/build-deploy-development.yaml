@@ -32,7 +32,7 @@ jobs:
         id: parse-message
         uses: ./.github/actions/parse-commit-message
         with:
-          pattern: '^(fix|chore|feat!|feat|(docs|refactor|perf|styles):)'
+          pattern: '^(fix|chore|feat!|feat|(docs|refactor|perf|styles))'
 
       - name: Automatic Tagging of Releases
         id: increment-git-tag
