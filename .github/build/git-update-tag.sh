@@ -6,10 +6,8 @@ git fetch --tags
 # Get the latest tag after fetching
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
-  CURRENT_TAG="v0.0.1"  # Create initial tag if none exists
-  git tag $CURRENT_TAG  # Create the tag in the repository
+  CURRENT_TAG="v1.0.0"  # Create initial tag if none exists
 fi
-
 
 TAG_VERSION="${CURRENT_TAG#v}"
 
