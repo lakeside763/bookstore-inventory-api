@@ -3,7 +3,7 @@ const github = require('@actions/github');
 
 try {
   // Define your commit message prefixes here
-  const validPrefixes = ['chore', 'feat!', 'feat', 'fix']; // Add more prefixes as needed
+  const validPrefixes = ['chore', 'feat!', 'feat', 'fix, docs, refactor, perf, styles']; // Add more prefixes as needed
 
   const commitMessage = github.context.payload.head_commit.message;
   console.log(`Commit Message: ${commitMessage}`);
@@ -14,11 +14,11 @@ try {
   
   if (match) {
     const extractedPrefix = match[1].toLowerCase();
-    console.log(extractedPrefix);
+    const incrementType = getVersionIncrementType(extractedPrefix);
 
     // Check if the extracted prefix is valid
     if (validPrefixes.includes(extractedPrefix)) {
-      core.setOutput('extracted_value', extractedPrefix);
+      core.setOutput('extracted_value', incrementType);
     } else {
       core.setFailed(`Invalid prefix: ${extractedPrefix}`);
     }
@@ -27,4 +27,15 @@ try {
   }
 } catch (error) {
   core.setFailed(error.message);
+}
+
+function getVersionIncrementType(commitPrefix) {
+  switch(commitPrefix) {
+    case 'feat!':
+      return 'major';
+    case 'feat':
+      return 'minor'
+    default: 
+      return patch
+  }
 }
