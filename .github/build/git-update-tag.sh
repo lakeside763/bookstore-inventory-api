@@ -1,6 +1,9 @@
 #!/bin/bash
 
-# Get current tag and components
+# Fetch remote tags
+git fetch --tags
+
+# Get the latest tag after fetching
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
   CURRENT_TAG="v0.0.1"  # Create initial tag if none exists
@@ -42,6 +45,9 @@ NEW_TAG_WITH_NO_V="${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 echo ::set-output name=git-tag::$NEW_TAG
 
 echo "current tag - $CURRENT_TAG"
+echo "INCREMENT TYPE - $INCREMENT_TYPE"
+echo "NEW tag - $NEW_TAG"
+echo "NEW tag WITH NO V - $NEW_TAG_WITH_NO_V"
 
 # Create and push new tag
 git tag $NEW_TAG
