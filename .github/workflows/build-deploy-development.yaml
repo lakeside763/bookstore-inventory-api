@@ -35,7 +35,7 @@ jobs:
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
-          bash ../build/git-update-tag.sh -v ${{ steps.parse-message.outputs.extracted_value }}
+          bash ./.github/build/git-update-tag.sh -v ${{ steps.parse-message.outputs.extracted_value }}
         
 
       - name: Build and Deploy

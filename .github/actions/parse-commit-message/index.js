@@ -14,6 +14,7 @@ try {
   
   if (match) {
     const extractedPrefix = match[1].toLowerCase();
+    console.log(extractedPrefix);
 
     // Check if the extracted prefix is valid
     if (validPrefixes.includes(extractedPrefix)) {
