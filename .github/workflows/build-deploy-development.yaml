@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with: 
+          token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Install NPM packages
         run: npm install
@@ -31,6 +33,11 @@ jobs:
       - name: Parse Commit Message
         id: parse-message
         uses: ./.github/actions/parse-commit-message
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
 
       - name: Automatic Tagging of Releases
         id: increment-git-tag
