@@ -38,11 +38,6 @@ fi
 NEW_TAG="v${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 NEW_TAG_WITH_NO_V="${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 
-echo "$INCREMENT_TYPE"
-echo "$NEW_TAG"
-echo "$NEW_TAG_WITH_NO_V"
-echo "$GITHUB_REF"
-
 echo ::set-output name=git-tag::$NEW_TAG
 
 # Create and push new tag
@@ -51,5 +46,5 @@ git push origin $NEW_TAG
 
 # Commit and push package.json changes
 git add package.json
-git commit -m "Update version to $NEW_TAG_NO_V"
+npm version ${INCREMENT_TYPE} -m "$NEW_TAG_NO_V"
 git push origin ${GITHUB_REF}
