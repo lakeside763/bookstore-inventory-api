@@ -26,16 +26,14 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Install NPM packages
-        run: |
-          npm install
-          echo "working directory: $GITHUB_WORKSPACE"
-          echo "pwd $pwd"
+        run: npm install
       
       - name: Parse Commit Message
         id: parse-message
         uses: ./.github/actions/parse-commit-message
         with:
           pattern: '^(fix|chore|feat!|feat|(docs|refactor|perf|styles):)'
+
       - name: Automatic Tagging of Releases
         id: increment-git-tag
         run: |
