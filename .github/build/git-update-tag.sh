@@ -3,12 +3,14 @@
 # Get current tag and components
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
-  CURRENT_TAG="0.0.1"  # Create initial tag if none exists
+  CURRENT_TAG="v0.0.1"  # Create initial tag if none exists
+  git tag $CURRENT_TAG  # Create the tag in the repository
 fi
 
-CURRENT_MAJOR=$(echo $CURRENT_TAG | awk -F. '{print $1}')
-CURRENT_MINOR=$(echo $CURRENT_TAG | awk -F. '{print $2}')
-CURRENT_PATCH=$(echo $CURRENT_TAG | awk -F. '{print $3}')
+TAG_VERSION="${CURRENT_TAG#v}"
+
+# Split the version string into components using a period as the delimiter
+IFS=. read -r CURRENT_MAJOR CURRENT_MINOR CURRENT_PATCH <<< "$TAG_VERSION"
 
 # Determine increment type based on extracted value
 INCREMENT_TYPE=$1
