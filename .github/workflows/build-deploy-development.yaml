@@ -27,7 +27,6 @@ jobs:
       
       - name: Install NPM packages
         run: |
-          cd ../../
           npm install
       
       - name: Parse Commit Message
