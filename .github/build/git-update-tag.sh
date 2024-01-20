@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo ${INCREMENT_TYPE}
+
 # Get current tag and components
 CURRENT_TAG=$(git describe --tags --abbrev=0)
 if [[ -z "$CURRENT_TAG" ]]; then
