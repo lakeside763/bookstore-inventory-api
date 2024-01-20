@@ -18,7 +18,7 @@ try {
 
     // Check if the extracted prefix is valid
     if (validPrefixes.includes(extractedPrefix)) {
-      core.setOutput('extracted_prefix', extractedPrefix);
+      core.setOutput('extracted_value', extractedPrefix);
     } else {
       core.setFailed(`Invalid prefix: ${extractedPrefix}`);
     }
