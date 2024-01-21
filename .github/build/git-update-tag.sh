@@ -40,6 +40,10 @@ NEW_TAG_WITH_NO_V="${NEW_MAJOR}.${NEW_MINOR}.${NEW_PATCH}"
 
 echo ::set-output name=git-tag::$NEW_TAG
 
+# Set up Git configuration
+git config --global user.email "lakeside763@gmail.com"
+git config --global user.name "lakeside763"
+
 # Create and push new tag
 git tag $NEW_TAG
 git push origin $NEW_TAG
