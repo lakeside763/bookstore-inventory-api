@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Fetch remote tags
-git fetch --tags
+# git fetch --tags
 
 # Get the latest tag after fetching
 CURRENT_TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
